@@ -38,9 +38,4 @@
 // This queue allows tasks to send characters to the user interface task for display.
 extern frt_text_queue* print_ser_queue;
 
-/*  This shared data item allows a value to be posted by the source task and read by
- *  the sink task.
- */
-extern shared_data<uint32_t>* count;
-
 #endif // _SHARES_H_

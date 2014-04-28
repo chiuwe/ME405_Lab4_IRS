@@ -47,8 +47,7 @@
 #include "frt_queue.h"                      // Header of wrapper for FreeRTOS queues
 #include "frt_shared_data.h"                // Header for thread-safe shared data
 #include "shares.h"                         // Global ('extern') queue declarations
-#include "task_user.h"                      // Header for user interface task
-#include "task_motor.h"
+#include "task_encoder.h"
 
 
 /** This is the number of tasks which will be instantiated from the task_multi class.
@@ -72,11 +71,11 @@ const uint8_t N_MULTI_TASKS = 4;
 */
 frt_text_queue* print_ser_queue;
 
-/** This shared data item allows a value to be posted by the source task and read by
- *  the sink task.
- */
-shared_data<uint32_t>* count;
+int blah = 0;
 
+ISR (INT5_vect) {
+   blah++;
+}
 
 //=====================================================================================
 /** The main function sets up the RTOS.  Some test tasks are created. Then the 
@@ -91,6 +90,10 @@ int main (void)
 	// sometimes the watchdog timer may have been left on...and it tends to stay on
 	MCUSR = 0;
 	wdt_disable ();
+	sei();
+	PORTE = 1 << PE5;
+	EICRB = 0b01010101;
+	EIMSK |= (1 << INT5);
 
 	// Configure a serial port which can be used by a task to print debugging infor-
 	// mation, or to allow user interaction, or for whatever use is appropriate.  The
@@ -101,10 +104,13 @@ int main (void)
 
 	// Create the queues and other shared data items here
 	print_ser_queue = new frt_text_queue (32, &ser_port, 10);
-	count = new shared_data<uint32_t>;
 
 	// Print an empty line so that there's space between task hellos and help message
 	ser_port << endl;
+
+	while (1) {
+		ser_port << blah << endl;
+	}
 
 	// Here's where the RTOS scheduler is started up. It should never exit as long as
 	// power is on and the microcontroller isn't rebooted
