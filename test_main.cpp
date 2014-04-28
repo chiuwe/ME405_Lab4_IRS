@@ -71,12 +71,6 @@ const uint8_t N_MULTI_TASKS = 4;
 */
 frt_text_queue* print_ser_queue;
 
-int blah = 0;
-
-ISR (INT5_vect) {
-   blah++;
-}
-
 //=====================================================================================
 /** The main function sets up the RTOS.  Some test tasks are created. Then the 
  *  scheduler is started up; the scheduler runs until power is turned off or there's a 
@@ -90,10 +84,6 @@ int main (void)
 	// sometimes the watchdog timer may have been left on...and it tends to stay on
 	MCUSR = 0;
 	wdt_disable ();
-	sei();
-	PORTE = 1 << PE5;
-	EICRB = 0b01010101;
-	EIMSK |= (1 << INT5);
 
 	// Configure a serial port which can be used by a task to print debugging infor-
 	// mation, or to allow user interaction, or for whatever use is appropriate.  The
@@ -108,9 +98,8 @@ int main (void)
 	// Print an empty line so that there's space between task hellos and help message
 	ser_port << endl;
 
-	while (1) {
-		ser_port << blah << endl;
-	}
+   new task_encoder ("Encoder1", tskIDLE_PRIORITY + 1, 240, &ser_port, PE5, 0b10101010);
+
 
 	// Here's where the RTOS scheduler is started up. It should never exit as long as
 	// power is on and the microcontroller isn't rebooted
