@@ -38,4 +38,8 @@
 // This queue allows tasks to send characters to the user interface task for display.
 extern frt_text_queue* print_ser_queue;
 
+extern shared_data<int32_t>* count;
+
+extern shared_data<int32_t>* error;
+
 #endif // _SHARES_H_

@@ -71,6 +71,14 @@ const uint8_t N_MULTI_TASKS = 4;
 */
 frt_text_queue* print_ser_queue;
 
+/** TODO: fix comment
+ */
+shared_data<int32_t>* count;
+
+/** TODO: fix comment
+ */
+shared_data<int32_t>* error;
+
 //=====================================================================================
 /** The main function sets up the RTOS.  Some test tasks are created. Then the 
  *  scheduler is started up; the scheduler runs until power is turned off or there's a 
@@ -94,11 +102,15 @@ int main (void)
 
 	// Create the queues and other shared data items here
 	print_ser_queue = new frt_text_queue (32, &ser_port, 10);
+	count = new shared_data<int32_t>;
+	error = new shared_data<int32_t>;
+
 
 	// Print an empty line so that there's space between task hellos and help message
 	ser_port << endl;
 
-   new task_encoder ("Encoder1", tskIDLE_PRIORITY + 1, 240, &ser_port, PE5, 0b10101010);
+   new task_encoder ("Encoder1", tskIDLE_PRIORITY + 1, 240, &ser_port, PE4, 0b10101010);
+   new task_encoder ("Encoder2", tskIDLE_PRIORITY + 1, 240, &ser_port, PE5, 0b10101010);
 
 
 	// Here's where the RTOS scheduler is started up. It should never exit as long as

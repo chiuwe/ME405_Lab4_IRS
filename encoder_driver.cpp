@@ -15,12 +15,10 @@
  *  \details \b Details: TO BE FILLED.
  */
 
- int32_t count = 0;
-
 encoder_driver::encoder_driver (emstream *p_serial_port, uint8_t bit, uint8_t trigger) {  
 
    ptr_to_serial = p_serial_port;
-   count = 0;
+   count->put(0);
    
    sei ();
    PORTE |= 1 << bit;
@@ -32,22 +30,22 @@ encoder_driver::encoder_driver (emstream *p_serial_port, uint8_t bit, uint8_t tr
 }
 
 int32_t encoder_driver::get_count (void) {
-   DBG(ptr_to_serial, count << endl);
-   return count;
+   return count->get();
 }
 
 void encoder_driver::zero (void) {
-   count = 0;
+   count->put(0);
 }
 
 void encoder_driver::set_position (int32_t position) {
-   count = position;
-}
-
-ISR (INT5_vect) {
-   count++;
+   count->put(position);
 }
 
 ISR (INT4_vect) {
-   count++;
+   static bool a;
+   static bool b;
+   // missing logic to increment and decrement and error count.
+   count->put(count->get()+1);
 }
+
+ISR (INT5_vect, ISR_ALIASOF(INT4_vect));

@@ -31,16 +31,7 @@ task_encoder::task_encoder (const char* a_name,
 void task_encoder::run (void) {
 
    for (;;) {
-     // uint8_t i = 0;
-     // char buf[5];
-
-     // itoa(encoder->get_count, buf, 10);
-     // while (buf[i]) {
-     //    print_ser_queue->putchar(buf[i]);
-     //    i++;
-     // }
-     // //print_ser_queue->putchar('\r');
-     //print_ser_queue << PMS ("ERROR in share, got ") << endl;
+     *print_ser_queue << PMS ("Error: ") << error->get() << PMS ("Count: ") << encoder->get_count() << endl;
 
      delay (100);
      runs++;
