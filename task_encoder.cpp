@@ -32,7 +32,7 @@ void task_encoder::run (void) {
 
    for (;;) {
      *print_ser_queue << PMS ("Error: ") << error->get() << PMS ("Count: ") << encoder->get_count() << endl;
-
+     encoder->print_info();
      delay (100);
      runs++;
    }

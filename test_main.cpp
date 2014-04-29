@@ -27,7 +27,7 @@
  *    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
  *    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
  *    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
-//************************************************************************************
+//*************************************************************************************
 
 
 #include <stdlib.h>                         // Prototype declarations for I/O functions
@@ -108,9 +108,8 @@ int main (void)
 
 	// Print an empty line so that there's space between task hellos and help message
 	ser_port << endl;
-
-   new task_encoder ("Encoder1", tskIDLE_PRIORITY + 1, 240, &ser_port, PE4, 0b10101010);
-   new task_encoder ("Encoder2", tskIDLE_PRIORITY + 1, 240, &ser_port, PE5, 0b10101010);
+   new task_encoder ("Encoder1", tskIDLE_PRIORITY + 1, 240, &ser_port, PE4, 0b01010101);
+   new task_encoder ("Encoder2", tskIDLE_PRIORITY + 1, 240, &ser_port, PE5, 0b01010101);
 
 
 	// Here's where the RTOS scheduler is started up. It should never exit as long as
