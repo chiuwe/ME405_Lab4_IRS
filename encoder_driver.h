@@ -35,7 +35,6 @@ class encoder_driver {
       int32_t get_count (void);
       void zero (void);
       void set_position (int32_t);
-      void print_info(void);
 
 }; // end of class encoder driver
 
