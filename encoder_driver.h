@@ -1,8 +1,8 @@
-//======================================================================================
-/** \file ecoder_driver.h
- *    NEEDS USEFUL COMMENTS.
+/** \file encoder_driver.cpp
+ * Class for creating a way to check on a moter encoder. Initializes the pin to use
+ * for interupts in the constructer, and creates an ISR to monitor the motor functionality.
+ * Comes with a couple of getter and setter functions
  */
-//======================================================================================
 
 // This define prevents this .H file from being included multiple times in a .CPP file
 #ifndef _AVR_ENCODER_DRIVER_H_
@@ -20,7 +20,7 @@
 
 //-------------------------------------------------------------------------------------
 /** \brief This class runs the encoder on the h-bridge chip.
- *  \details This class takes in several ports and their inputs and masks for a 
+ *  \details This class takes in a port and its inputs and masks for a 
  *  specific motherboard, as well as a serial port.
  */
 
@@ -30,7 +30,7 @@ class encoder_driver {
       emstream* ptr_to_serial;
 
    public:
-      /// TODO: add commments.
+      /// Constructor initializes the pin, and the rest are getter and setter functions
       encoder_driver (emstream *p_serial_port, uint8_t bit, uint8_t trigger);
       int32_t get_count (void);
       void zero (void);

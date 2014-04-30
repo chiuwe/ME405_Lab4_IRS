@@ -1,13 +1,20 @@
-//**************************************************************************************
 /** \file task_encoder.cpp
- *    TODO: fix comment.*/
-//**************************************************************************************
+ * This class is basically a wrapper for the encoder_driver. It creates a new
+ * encoder driver, and loops forever waiting for the encoder_driver ISR to do
+ * something. Outputs to the serial queue to show how the encoder_driver is doing 
+*/
+
 
 #include "task_encoder.h"                   // Header for this encoder
 
 
 //-------------------------------------------------------------------------------------
 
+/**
+ * Basic constructor. Assigns all the appropriate paramiters to their respective 
+ * instance variables, creates a new encoder to start running, and initializes
+ * runs to 0
+ */
 task_encoder::task_encoder (const char* a_name,
                             unsigned portBASE_TYPE a_priority,
                             size_t a_stack_size,
@@ -23,9 +30,9 @@ task_encoder::task_encoder (const char* a_name,
 
 //-------------------------------------------------------------------------------------
 /** This method is called once by the RTOS scheduler. Each time around the for (;;)
- *  loop, it reads the A/D converter and change the selected motors speed. Each loop
- *  also check the two additional buttons, which control the brakes of the individual
- *  motors.
+ *  loop, it sends the current number of errors and the current count to the screen.
+ *  The main point is to wait for interputs to be called in encoder_driver, which will
+ *  change |error| and |count| based on different functionally.
  */
 
 void task_encoder::run (void) {

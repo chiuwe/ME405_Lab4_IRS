@@ -1,7 +1,8 @@
-//**************************************************************************************
-/** \file task_encoder.h
- *    FIX COMMENT.*/
-//**************************************************************************************
+/** \file task_encoder.cpp
+ * This class is basically a wrapper for the encoder_driver. It creates a new
+ * encoder driver, and loops forever waiting for the encoder_driver ISR to do
+ * something. Outputs to the serial queue to show how the encoder_driver is doing 
+*/
 
 // This define prevents this .h file from being included multiple times in a .cpp file
 #ifndef _TASK_ENCODER_H_
@@ -22,10 +23,10 @@
 #include "shares.h"
 #include "encoder_driver.h"
 
-//-------------------------------------------------------------------------------------
-/** This task determines what commands to send to the motor driver.
- */
 
+/** 
+ * This task creates a new encoder_driver and outputs it's status on a regular basis.
+ */
 class task_encoder : public frt_task
 {
 private:
