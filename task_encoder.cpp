@@ -1,8 +1,8 @@
 /** \file task_encoder.cpp
  * This class is basically a wrapper for the encoder_driver. It creates a new
  * encoder driver, and loops forever waiting for the encoder_driver ISR to do
- * something. Outputs to the serial queue to show how the encoder_driver is doing 
-*/
+ * something. Outputs to the serial queue to show how the encoder_driver is doing.
+ */
 
 
 #include "task_encoder.h"                   // Header for this encoder
@@ -14,6 +14,14 @@
  * Basic constructor. Assigns all the appropriate paramiters to their respective 
  * instance variables, creates a new encoder to start running, and initializes
  * runs to 0
+ * @param a_name A character string which will be the name of this task
+ * @param a_priority The priority at which this task will initially run (default: 0)
+ * @param a_stack_size The size of this task's stack in bytes
+ *                   (default: configMINIMAL_STACK_SIZE)
+ * @param p_ser_dev Pointer to a serial device which can be used by this task to communicate
+ * @param bit which pin on PORTE to use as an external interupt
+ * @param trigger a mask to put on the external interupt control register to make sure
+ *  that the ISR is called both on the rising and falling edge.
  */
 task_encoder::task_encoder (const char* a_name,
                             unsigned portBASE_TYPE a_priority,

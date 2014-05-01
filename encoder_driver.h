@@ -19,7 +19,7 @@
 #include "shares.h"
 
 //-------------------------------------------------------------------------------------
-/** \brief This class runs the encoder on the h-bridge chip.
+/** \brief This class reads the input from an encoder.
  *  \details This class takes in a port and its inputs and masks for a 
  *  specific motherboard, as well as a serial port.
  */

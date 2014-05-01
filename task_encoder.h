@@ -32,6 +32,7 @@ class task_encoder : public frt_task
 private:
 
 protected:
+   /// A pointer to the driver encoder.
    encoder_driver* encoder;
 
 public:

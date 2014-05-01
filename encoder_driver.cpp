@@ -127,4 +127,7 @@ ISR (INT4_vect) {
    lastB = currentB;
 }
 
+/**
+ * An alias ISR for pin 5.
+ */
 ISR (INT5_vect, ISR_ALIASOF(INT4_vect));
